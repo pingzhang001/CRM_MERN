@@ -1,6 +1,7 @@
 import React from 'react'
-import { Navbar, Nav, NavbarBrand } from 'react-bootstrap'
+import { Navbar, Nav } from 'react-bootstrap'
 import panda from "../../assets/img/panda.webp";
+import './header.comp.css'
 
 export default function Header() {
   return (
@@ -9,6 +10,7 @@ export default function Header() {
       variant="dark"
       bg="info"
       expand="md"
+      style={{'backgroundColor': 'black'}}
     >
       <Navbar.Brand>
         <img src={panda} alt="logo" width="65px" />
