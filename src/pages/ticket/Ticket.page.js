@@ -4,20 +4,30 @@ import PageBreadcrumb from '../../components/breadcrumb/Breadcrumb.com'
 import tickets from '../../assets/data/dummy-tickets.json'
 import MessageHistory from "../../components/message-history/MessageHistory.comp";
 import UpdateTicket from '../../components/update-ticket/UpdateTicket.comp'
+import {useParams} from 'react-router-dom'
 
-const ticket = tickets[0]
+// const ticket = tickets[0]
 export default function Ticket() {
+  const { tId } = useParams()
+  const history = Boolean(tickets[tId-1].history)? tickets[tId-1].history : []
   const [message, setMessage] = useState('')
-  useEffect(() => {}, [message])
+  const [ticket, setTicket] = useState(tickets[tId-1])
+  useEffect(() => {
+    // setTicket(tickets.filter((t) => {
+    //   return t.id === tId-1
+    // }))
+  }, [message, tId])
 
   const handleOnChange = (e) => {
     setMessage(e.target.value)
-    console.log(e.target.value)
+    alert(e.target.value)
   }
   
   const handleOnSubmit = () => {
     alert(message)
   }
+  // console.log(message)
+  // console.log(tId)
 
   return (
     <Container>
@@ -38,14 +48,14 @@ export default function Ticket() {
       </Row>
       <Row className="mt-4">
         <Col>
-          <MessageHistory msg={ticket.history} />
+          <MessageHistory msg={history} />
         </Col>
       </Row>
       <hr />
       <Row className="mt-4">
         <Col>
           <UpdateTicket
-            msg={message}
+            msg={message} 
             handleOnChange={handleOnChange}
             handleOnSubmit={handleOnSubmit}
           />

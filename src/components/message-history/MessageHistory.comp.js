@@ -4,8 +4,7 @@ import './message-history.style.css'
 
 export default function MessageHistory({ msg }) {
   // console.log(msg)
-  const renderedContent = () => {
-    return msg.map((m, i) =>
+  const renderedContent = msg.length > 0 ? msg.map((m, i) =>
       <div className="message-history mt-3" key={i}>
         <div className="send font-weight-bold text-secondary">
           <div className="sender">{ m.messageBy}</div>
@@ -13,11 +12,10 @@ export default function MessageHistory({ msg }) {
         </div>
         <div className="message">{ m.message}</div>
       </div>
-    )
-  }
+    ):<h2>This ticket has no message ...!</h2>
 
   return (
-    <div>{renderedContent()}</div>
+    <div>{renderedContent}</div>
   )
 }
 

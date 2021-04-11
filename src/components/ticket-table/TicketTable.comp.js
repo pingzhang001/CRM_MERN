@@ -1,17 +1,28 @@
 import React from 'react'
+import { useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
-import PropTypes from 'prop-types'
+import { Link } from "react-router-dom";
 
-export default function TicketTable({tickets}) {
+export default function TicketTable() {
+  
+  const {searchTicketList, isLoading, error } = useSelector(state => state.tickets)
 
-  const renderedContent = tickets.length ? tickets.map((row) => (
-        <tr key={ row.id}>
-          <td>{row.id}</td>
-          <td>{ row.subject}</td>
-          <td>{ row.status}</td>
-          <td>{ row.addedAt}</td>
-        </tr>
-      )): <tr><td colSpan="4" className="text-center">No ticket to show</td></tr>
+  if (isLoading) {
+    return <h3>Loading</h3>
+  }
+  if (error) {
+    return <h3>{ error }</h3>
+  }
+  const renderedContent = searchTicketList.length ? searchTicketList.map((row) => (
+    <tr key={ row._id}>
+      <td>{row._id}</td>
+      <td>
+        <Link to={`/ticket/${row.id}`}>{row.subject}</Link>
+      </td>
+      <td>{ row.status}</td>
+      <td>{ row.openAt}</td>
+    </tr>
+  )) : <tr><td colSpan="4" className="text-center">No ticket to show or match with your searching!</td></tr> 
   return (
     <Table striped bordered hover>
       <thead>
@@ -37,6 +48,6 @@ export default function TicketTable({tickets}) {
   )
 }
 
-TicketTable.propTypes = {
+/* TicketTable.propTypes = {
   tickets : PropTypes.array.isRequired
-}
+} */
