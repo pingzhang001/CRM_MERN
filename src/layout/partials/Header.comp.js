@@ -8,6 +8,7 @@ import './header.comp.css'
 export default function Header() {
   const history = useHistory()
   const logMeOut = () => {
+    sessionStorage.removeItem('accessJWT')
     history.push("/")
   }
   return (
